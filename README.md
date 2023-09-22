@@ -4,7 +4,7 @@ server-agent for metric collection .
 
 - [00 | Overview](README.md)
 - [01 | Intro](#intro)
-- [00 | Architecture](#architecture)
+- [02 | Architecture](#architecture)
 
 ## Intro
 This project aims to demonstrate the basic server - agents designe through a `distributed metric collecting microservices`. The main features include :
