@@ -6,3 +6,5 @@ edition = "2021"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
+metriko-common = {path = "../metriko-common"}
+sysinfo = { version = "0.29.10", features = ["apple-app-store"] }
