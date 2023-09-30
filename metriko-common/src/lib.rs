@@ -1,7 +1,7 @@
 use std::time::{SystemTime, UNIX_EPOCH};
 use serde::Serialize ; 
 use serde::Deserialize;
-pub const METRIKO_PORT : &str = ":9094";
+pub const METRIKO_PORT : &str = "0.0.0.0:9094";
 const MAGIC_NUMBER : u16 = 9510 ;
 const VERSION_NUMBER : u16 = 1 ; 
 #[derive(Debug,Serialize,Deserialize,Clone,PartialEq)]
