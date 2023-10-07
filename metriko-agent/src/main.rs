@@ -15,15 +15,26 @@ fn main() {
     });
     let mut data_queue  = VecDeque::with_capacity(150) ;
     while let Ok(collected_data) = rx.recv() {
-        data_queue.push_back(collected_data);
+        // encoding here instead of encoding each message 
+        let encoded_data = metriko_common::encode(&collected_data);
+        data_queue.push_back(encoded_data);
+        if agent::send_queque_to_server(&mut data_queue).is_err(){
+            println!("error while dialing the server - queueing data until the server is up")
+        }
+      
+       /*
+       
+        data_queue.push_back(encoded_data);
         println!("sending updated metrics to server");
         while  let Some(data) = data_queue.pop_front() {
-            if agent::send_data_to_server(&data).is_err() {
+            if agent::send_queque_to_server(&mut data_queue).is_err() {
                 println!("error while sending data to metriko-server");
                 data_queue.push_front(data);
                 break
             }
         } 
+       
+        */
       
     }
 }

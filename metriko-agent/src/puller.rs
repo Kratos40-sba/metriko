@@ -27,11 +27,11 @@ pub fn pull_metrics_from_machine(tx: Sender<metriko_common::MetrikoApi>) {
             println!("error while sending data {sending_data_fail:?}")
         }
         let remained_time = now.elapsed().as_secs_f32();
-        if remained_time < 1.0 {
-            std::thread::sleep(std::time::Duration::from_secs_f32(1.0 - remained_time))
+        if remained_time < 10.0 {
+            std::thread::sleep(std::time::Duration::from_secs_f32(10.0 - remained_time))
         } else {
             // metric pulling hangs a little we can give it some extra time
-            std::thread::sleep(std::time::Duration::from_secs_f32(1.0))
+            std::thread::sleep(std::time::Duration::from_secs_f32(10.0))
         }
     }
 }
