@@ -1,7 +1,7 @@
 use std::time::{SystemTime, UNIX_EPOCH};
 use serde::Serialize ; 
 use serde::Deserialize;
-pub const METRIKO_PORT : &str = ":9094";
+pub const METRIKO_PORT : &str = "0.0.0.0:9094";
 const MAGIC_NUMBER : u16 = 9510 ;
 const VERSION_NUMBER : u16 = 1 ; 
 #[derive(Debug,Serialize,Deserialize,Clone,PartialEq)]
@@ -13,7 +13,7 @@ pub enum MetrikoApi {
     avg_cpu_usage : f32 , 
  }
 }
-pub fn encode(command : MetrikoApi) -> Vec<u8> {
+pub fn encode(command : &MetrikoApi) -> Vec<u8> {
     let json = serde_json::to_string(&command).unwrap() ; 
     let json_bytes = json.as_bytes(); 
     let crc = crc32fast::hash(json_bytes); 
@@ -61,7 +61,7 @@ mod tests {
     #[test]
     fn test_enc_dec() {
         let cmd = MetrikoApi::SubmitData { collector_id: 144758, total_memory: 100, used_memory: 50, avg_cpu_usage: 0.1 };
-        let encoded = encode(cmd.clone());
+        let encoded = encode(&cmd);
         let (timestamp,decoded) = decode(&encoded);
         assert_eq!(decoded,cmd);
         assert!(timestamp > 0);
